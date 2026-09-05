@@ -8,6 +8,7 @@ import { ArrowLeft, Clock, User } from '@phosphor-icons/react/dist/ssr';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { mdxComponents } from '@/components/mdx-components';
 import { siteConfig } from '@/lib/constants';
+import remarkGfm from 'remark-gfm';
 
 interface Props {
   params: { slug: string };
@@ -101,7 +102,15 @@ export default function BlogPostPage({ params }: Props) {
         </header>
 
         <div className="prose prose-lg max-w-none">
-          <MDXRemote source={post.content} components={mdxComponents} />
+          <MDXRemote 
+            source={post.content} 
+            components={mdxComponents} 
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm],
+              },
+            }}
+          />
         </div>
       </article>
 
